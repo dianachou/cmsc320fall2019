@@ -1,16 +1,16 @@
 # Project 3
 
-Posted: October 31, 2019
+Posted: October 31, 2017
 
-Last Updated: October 31, 2019
+Last Updated: October 31, 2017
 
-Due: November 20, 2019
+Due: November 17, 2017
 
 ## Part 1: Regression analysis of Gapminder data
 
 In this part of this project you will practice and experiment with linear regression using data from <a href="http://gapminder.org">gapminder.org</a>. We recommend spending a little time looking at material there, it is quite an informative site.
 
-We will use a subset of data provided by gapminder provided by <a href="https://jennybryan.org/">Jennifer Bryan</a> described in it’s <a href="https://github.com/jennybc/gapminder">github page</a>.
+We will use a subset of data provided by gapminder provided by <a href="http://www.stat.ubc.ca/~jenny/">Jennifer Bryan</a> described in it’s <a href="https://github.com/jennybc/gapminder">github page</a>.
 
 Get the data from: https://github.com/jennybc/gapminder/blob/master/data-raw/08_gap-every-five-years.tsv
 
@@ -21,12 +21,15 @@ data.head()
 ```
 
 ```
-    country	 continent	year	lifeExp	pop	        gdpPercap
-0	Afghanistan	Asia	1952	28.801	8425333	    779.445314
-1	Afghanistan	Asia	1957	30.332	9240934	    820.853030
-2	Afghanistan	Asia	1962	31.997	10267083	853.100710
-3	Afghanistan	Asia	1967	34.020	11537966	836.197138
-4	Afghanistan	Asia	1972	36.088	13079460	739.981106
+## # A tibble: 6 × 6
+##       country continent  year lifeExp      pop gdpPercap
+##        <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
+## 1 Afghanistan      Asia  1952  28.801  8425333  779.4453
+## 2 Afghanistan      Asia  1957  30.332  9240934  820.8530
+## 3 Afghanistan      Asia  1962  31.997 10267083  853.1007
+## 4 Afghanistan      Asia  1967  34.020 11537966  836.1971
+## 5 Afghanistan      Asia  1972  36.088 13079460  739.9811
+## 6 Afghanistan      Asia  1977  38.438 14880372  786.1134
 ```
 
 For this exercise you will explore how life expectancy has changed over 50 years across the world, and how economic measures like gross domestic product (GDP) are related to it.
@@ -38,11 +41,11 @@ For this exercise you will explore how life expectancy has changed over 50 years
 A slightly different way of making the same plot is looking at the distribution of life expectancy across countries as it changes over time:
 
 ```
-lggplot(aes(x='year', y='lifeExp'), data=data) +\
+ggplot(aes(x='year', y='lifeExp'), data=data) +\
     geom_violin() +\
     labs(title="Life expectancy over time",
          x = "year",
-         y = "life expectancy")</code></pre>
+         y = "life expectancy")
 ```
 
 <img src="figs/violin.png" height="242">
@@ -83,18 +86,18 @@ Based on this plot, consider the following questions.
 
 **Question 12**: <em>On average, by how much does life expectancy increase each year for each continent? (Provide code to answer this question by extracting relevant estimates from model fit)</em>
 
-<s>**Exercise 7**: <em> Perform an F-test that compares how well two models fit your data: (a) the linear regression models from Exercise 2 (only including year as a covariate) and (b) Exercise 6 (including interaction between year and continent).  You may want to use the `scipy.stats.f_oneway` function for this.</em>  
+**Exercise 7**: <em> Perform an F-test that compares how well two models fit your data: (a) the linear regression models from Exercise 2 (only including year as a covariate) and (b) Exercise 6 (including interaction between year and continent).</em>
 
-**Question 13**: <em>Is the interaction model significantly better than the year-only model? Why?</em></s>
+**Question 13**: <em>Is the interaction model significantly better than the year-only model? Why?</em>
 
-**Exercise 8**: <em>Make a residuals vs. year violin plot for the interaction model. Comment on how well it matches assumptions of the linear regression model.</em>
+**Exercise 8**: <em>Make a residuals vs. year violin plot for the interaction model. Comment on how well it matches assumptions of the linear regression model. Do the same for a residuals vs. fitted values model.</em>
 
 
 ## Part 2: Classification
 
 ### Gradient Descent
 
-<p><strong>Problem 1</strong> <em>Implement the gradient descent algorithm (either batch or stochastic versions) for multiple linear regression. I.e., extend the version of the algorithm in the lecture notes to multiple parameters.</em></p>
+<p><strong>Problem 1</strong> <em>Implement the gradient descent algorithm (either batch or stochastic versions) for multiple logistic regression. I.e., extend the version of the algorithm in the lecture notes to multiple parameters.</em></p>
 <p>The gradient descent update equation for logistic regression is given by:</p>
 
 <!--
@@ -120,8 +123,7 @@ p_i(\beta^k) = \frac{e^{f_i(\beta^k)}}{1+e^{f_i(\beta^k)}}
 
 <img src="figs/eq3.png" alt="Equation 3" width="350"/></p>
 
-<p><strong>Problem 2</strong> <strong>(This problem is +5 points of extra credit.)</strong> <em>Derive the above update equation</em>. Write the derivation in a markdown ipynb cell. </p>
-
+<p><strong>Problem 2</strong> <em>Derive the above update equation</em>. Write the derivation in a markdown ipynb cell. </p>
 <p><strong>Problem 3</strong> <em>Implement the gradient descent algorithm (either batch or stochastic versions) for multiple logistic regression.</em> I.e., modify your code in problem 1 for the logistic regression update equation.</p>
 <p>Make sure you include in your submission writeup, which version of the algorithm you are solving (stochastic or batch), and make sure to comment your code to help us understand your implementation.</p>
 <p><strong>Problem 4</strong> To test your programs, simulate data from the linear regression and logistic regression models and check that your implementations recover the simulation parameters properly.</p>
@@ -186,5 +188,5 @@ plt.plot(gen_data_x, dummy)</code></pre>
 <li><p>Include code to obtain and prepare your data as a dataframe to use with your three classification algorithms. In case your dataset includes non-numeric predictors, include the code you are using to transform these predictors into numeric predictors you can use with your logistic regression implementation.</p></li>
 <li><p>Specify the two additional algorithms you have chosen in part (b), and for algorithms that have hyper-parameters specify the method you are using for model selection.</p></li>
 <li><p>Include all code required to perform the 10-fold cross-validation procedure on your three algorithms.</p></li>
-<li><p>Write up the result of your 10-fold cross-validation procedure. Make sure to report the 10-fold CV error estimate (with standard error) of each of the three algorithms. Also report on the result of the <em>two</em> paired t-tests comparing your logistic regression algorithm with your chosen two algorithms.</p></li>
+<li><p>Writeup the result of your 10-fold cross-validation procedure. Make sure to report the 10-fold CV error estimate (with standard error) of each of the three algorithms. Also report on the result of the <em>two</em> paired t-tests comparing your logistic regression algorithm with your chosen two algorithms.</p></li>
 </ol>
